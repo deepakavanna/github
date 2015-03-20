@@ -1,0 +1,18 @@
+package edu.sjsu.amq;
+
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.Channel;
+
+public class Send {
+	
+	public static void main(String[] args) {
+		
+		ConnectionFactory factory = new ConnectionFactory();
+	    factory.setHost("localhost");
+	    Connection connection = factory.newConnection();
+	    Channel channel = connection.createChannel();
+
+	}
+
+}

@@ -1,0 +1,43 @@
+package edu.sjsu.amq;
+
+import com.google.gson.Gson;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+
+public class Send {
+	
+	private final static String QUEUE_NAME = "hello";
+	
+	public static void main(String[] args) throws java.io.IOException {
+		
+		ConnectionFactory factory = new ConnectionFactory();
+	    factory.setHost("localhost");
+	    Connection connection = factory.newConnection();
+	    Channel channel = connection.createChannel();
+	    
+	    channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+	    String message = "Hello World!";
+	    
+	    Person person = new Person();
+	    person.setFirstName("deepak");
+	    person.setLastName("avanna");
+	    Address address = new Address();
+	    address.setCity("San Jose");
+	    address.setHouseNumber("2211");
+	    address.setState("CA");
+	    address.setStreet("N 1st street");
+	    address.setZipCode("95051");
+	    person.setAddress(address);
+	    
+	    Gson gson = new Gson();
+	    String json = gson.toJson(obj);  
+	    channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+	    System.out.println(" [x] Sent '" + message + "'");
+	    
+	    channel.close();
+	    connection.close();
+
+	}
+
+}
