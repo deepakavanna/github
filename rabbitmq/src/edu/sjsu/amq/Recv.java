@@ -6,6 +6,8 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
 
+import edu.sjsu.amq.request.Request;
+
 public class Recv {
 
 	  private final static String QUEUE_NAME = "hello";
@@ -30,10 +32,10 @@ public class Recv {
 	      QueueingConsumer.Delivery delivery = consumer.nextDelivery();
 	      String message = new String(delivery.getBody());
 	      Gson gson = new Gson();
-	      Person obj2 = gson.fromJson(message, Person.class);   
+	      Request obj2 = gson.fromJson(message, Request.class);   
 	      System.out.println(" [x] Received '" + message + "'");
 	      
-	      System.out.println(obj2.getFirstName());
+	      System.out.println(obj2.getPlatform());
 	    }
 	    
 	    }
